@@ -1,0 +1,8 @@
+# Windows release artifacts
+# Binary installer is committed under /releases/WindowsApp-Setup-1.5.3.exe
+
+# Build temp / caches
+*.tmp
+*.log
+.DS_Store
+Thumbs.db
