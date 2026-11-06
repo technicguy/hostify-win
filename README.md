@@ -1,266 +1,305 @@
-# HospitalityOS — Windows Desktop App (Offline Hub)
+# HospitalityOS (HOSTIFY) — Windows Desktop App (Offline Hub)
 
 [![Platform](https://img.shields.io/badge/Platform-Windows%2010%20%7C%2011%20(x64)-blue.svg)](#system-requirements)
 [![Release](https://img.shields.io/badge/Release-v1.5.3-emerald.svg)](releases/WindowsApp-Setup-1.5.3.exe)
 [![Architecture](https://img.shields.io/badge/Engine-Flutter%203.41%20%7C%20Dart%203.11-cyan.svg)](#technical-architecture)
 [![License](https://img.shields.io/badge/License-Proprietary%20%2F%20Commercial-amber.svg)](#licensing--authorization)
 
-![HospitalityOS](hostify.png)
+![HOSTIFY HospitalityOS](hostify.png)
 
-> **HospitalityOS Offline Hub** is the dedicated enterprise Windows desktop companion for hotels, resorts, banquets, and multi-outlet restaurants. Engineered with an offline-first architecture, it provides an autonomous edge workstation that handles local order processing, kitchen display coordination, Wi-Fi intercom calling, and thermal receipt printing — even during prolonged internet outages.
+> **HOSTIFY HospitalityOS Offline Hub** is the comprehensive enterprise desktop operations center for hotels, resorts, multi-outlet restaurants, and banquet venues. It functions as an **autonomous edge server & POS terminal** that guarantees non-stop front-desk, dining, kitchen, and billing operations — **even during complete internet and cloud outages**.
 
 ---
 
-## ⚠️ MANDATORY DEPENDENCY NOTICE
+## ⚠️ MANDATORY DEPENDENCY & PREREQUISITE NOTICE
 
 > [!CAUTION]
-> ### 🛑 This Desktop App CANNOT Run Standalone Without the Hospitality Web System
+> ### 🛑 Without the Hospitality Web System, This Desktop Version WILL NOT Work!
 > 
-> **HospitalityOS Desktop is NOT an independent, isolated application.**  
-> It is an **offline edge node / companion hub** specifically designed to link directly with your **Hospitality Management Web Platform** (e.g., hosted on `https://www.esanshar.com.np` or your private dedicated domain).
+> **HOSTIFY Windows Desktop is NOT an independent or standalone offline software.**  
+> It is an **offline edge node / local operations hub** that is intrinsically bound to your **Hospitality Management Web System** (hosted on `https://www.esanshar.com.np` or your private dedicated domain).
 >
-> 1. **Initial Provisioning & Sync**: On initial setup, you **MUST** provide your **Project Base URL** and authenticate using an authorized staff/admin account registered on your web system.
-> 2. **Master Data Authority**: Menu items, room inventories, table maps, staff credentials, tax rates, and hotel business configurations originate from and belong to the web platform.
-> 3. **Hardware Authorization & Node Licensing**: The app validates its node fingerprint and security access policy against the mother web system. Unregistered or unauthorized desktop instances will be locked.
-> 4. **Bidirectional Ledger Synchronization**: All local bookings, offline POS bills, table changes, and KDS updates must sync back to the cloud ledger whenever connection is available.
+> 1. **Initial Provisioning & Authentication**: On first launch, you **CANNOT** use the software without linking your **Project Base URL** and signing in with an authorized staff or administrator account created on your web system.
+> 2. **Master Catalog Authority**: Your food menu, categories, room inventories, room types, banquet halls, tax rules (VAT/PAN), and user privileges originate from and are maintained by the web platform.
+> 3. **Hardware Fingerprint & Node Authorization**: The app submits a unique machine fingerprint (`desk_<hostname>_<hash>`) to the Mother Licensing Authority on the web system. If an administrator disables access for this node, POS and KDS operations are locked.
+> 4. **Bidirectional Ledger Synchronization**: Offline transactions (bookings, table orders, payments, room folios) are queued locally and **must be synced** back to the web platform to maintain consolidated business accounts.
 
 ---
 
-## 📥 Download Official Release
+## 📥 Download Latest Official Release
 
-| Release File | Version | Architecture | SHA256 Checksum | Download |
+| Installer File | Version | Architecture | SHA256 Checksum | Direct Download |
 | :--- | :---: | :---: | :--- | :--- |
 | **`WindowsApp-Setup-1.5.3.exe`** | `v1.5.3` | `x64` (64-bit) | `19FE9F26C036F6A6F416134B15ACCB1A1E081643596577D488B921463F790DE8` | [⬇️ Download Installer (21.0 MB)](releases/WindowsApp-Setup-1.5.3.exe) |
 
 ---
 
-## 🌟 What's New in Version 1.5.3
+## 📑 Complete In-App User Guide & Module Documentation
 
-* **Kitchen Display System (KDS) Native Voice Announcements**:
-  * Employs native Windows Speech API (`SAPI.SpVoice`) via hardened PowerShell UTF-16LE `-EncodedCommand` execution.
-  * Real-time text-to-speech announces incoming orders even without internet access.
-  * Three selectable voice announcement profiles: **Detailed**, **Compact**, and **Alert Only**.
-  * Speech rate slider (`0.7x` to `1.4x`) and live AppBar quick-toggle.
-* **Full Order Item Visibility on KDS Cards**:
-  * Completely eliminated the `.take(2)` limit and `+ more items...` truncation.
-  * Every item, quantity multiplier (`1x`, `2x`), and preparation modifier is now visible across Pending, Preparing, and Completed board lanes.
-* **Reactive Provider State Architecture**:
-  * Replaced static initial settings with dynamic live Riverpod state reads on every background poll cycle.
-
----
-
-## 📑 Comprehensive Feature Breakdown, Usage & Business Benefits
+This documentation directly mirrors the comprehensive **Documentation & User Guide** built into the HOSTIFY Desktop Hub application.
 
 ```
-+----------------------------------------------------------------------------------------------------+
-|                                    HospitalityOS Ecosystem                                        |
-+--------------------------------------------------+-------------------------------------------------+
-|              CLOUD WEB SYSTEM                    |              OFFLINE DESKTOP HUB                |
-|           (esanshar.com.np)                      |                (Windows App)                    |
-|                                                  |                                                 |
-|  * Master Menu Catalog & Price Rules             |  * Embedded Shelf Web Server (:8090 / :8443)    |
-|  * Room Categories & Reservation Booking Engine  |  * Autonomous SQLite Edge Database              |
-|  * Multi-branch Ledger & Centralized Accounting  |  * Zero-Latency POS Billing & Receipt Printing  |
-|  * HRIS, Attendance & Enterprise Payroll Engine  |  * Native Windows SAPI Kitchen Voice Alerts     |
-|  * Node License & Machine Access Provisioning    |  * Local WebRTC & Wi-Fi Audio Staff Intercom    |
-+--------------------------------------------------+-------------------------------------------------+
-                                      \                       /
-                                       \                     /
-                                        ▼                   ▼
-                               [ Bidirectional Sync Engine v2.0 ]
-                                 (Automated Background Sync)
+========================================================================================
+                          HOSTIFY DESKTOP HUB MODULE DIRECTORY
+========================================================================================
+ 1. GETTING STARTED            2. HOTEL MANAGEMENT           3. RESTAURANT & POS
+    • About HOSTIFY               • Hotel Bookings & Folios     • Tables & Menu Catalog
+    • Login & First-Time Setup    • Occupancy Calendar & Rack   • Take-Order POS Terminal
+    • Navigating the UI Workspace • Rooms & Housekeeping        • Kitchen Display (KDS) + TTS
+    • Operations Dashboard        • Guests Directory & Wallet   • Billing, Payments & Deposits
+                                                                • All Orders & Receipts
+ 4. GUEST & STAFF MOBILITY     5. OPERATIONS & EVENTS        6. ADMINISTRATION & HELP
+    • Guest QR Digital Menu       • Delivery Dispatch System    • User Roles & Permissions
+    • Staff Mobile App Gateway    • Banquets & Event Halls      • Offline Sync Engine & Backup
+    • Wi-Fi WebRTC Intercom       • Finance, Invoices & Reports • Settings, POS Hardware & Diagnostics
+                                                                • Frequently Asked Questions (FAQ)
+                                                                • Troubleshooting & System Glossary
+========================================================================================
 ```
 
 ---
 
-### 1. 🍽️ Kitchen Display System (KDS) & Native Voice TTS
+### 1. 🚀 Getting Started
 
-#### How It Works:
-Replaces paper tickets in the kitchen with a real-time digital display organized into three workflow columns: **Pending**, **Preparing**, and **Completed**. When an order is placed from a guest QR menu, POS terminal, or hotel room service, it enters the board instantly. Version 1.5.3 introduces a voice announcer powered by Windows SAPI that vocalizes orders through kitchen loudspeakers.
+#### 1.1 About HOSTIFY
+* **Overview**: HOSTIFY is a full-spectrum hospitality management solution combining Hotel PMS, Restaurant POS, Banquet Coordinator, and Delivery Dispatch.
+* **The Desktop Hub Role**: The desktop application is the local nerve center:
+  * Manages the high-speed local SQLite database (`sqflite_common_ffi`).
+  * Runs a self-contained local web server (`:8090` HTTP / `:8443` HTTPS) for staff mobile apps and guest QR menus.
+  * Synchronizes bidirectionally with the central web platform when internet access is available.
 
-#### How to Use:
-1. Open **Restaurant Management -> Active Orders (KDS)**.
-2. In the top AppBar, click the **Voice Announce Icon** to switch TTS ON (blue) or OFF (grey).
-3. Open **Settings -> Kitchen Voice Announcement (TTS)** to select your preferred announcement format:
-   - **Full Detail**: *"New order for Table 5. 2 Chicken Burger, 1 Lemon Tea."*
-   - **Compact**: *"New order for Table 5. 3 items."*
-   - **Alert Only**: *"New order received."*
-4. Adjust the **Speech Speed** slider (`0.7x`–`1.4x`) and click **Test Voice Announcement** to verify speaker volume.
-5. Kitchen chefs click **Start Preparing** to advance an order, then **Mark Complete** when finished.
+#### 1.2 Login & First Setup
+* **Location**: Login Screen → Settings → System & Hardware
+* **Step-by-Step Setup**:
+  1. Launch HOSTIFY on Windows and sign in with your staff credentials (assigned via the web system).
+  2. In **Settings → System & Hardware**, verify your **Live Server URL** (e.g., `https://www.esanshar.com.np`) and **API License Key**.
+  3. Click **Backup / Sync** in the top ribbon to pull down your complete master catalog: food menus, table layouts, room classifications, and staff directories.
+  4. Navigate to **Restaurant Management → Tables** and **Hotel Management → Rooms** to verify your data has been seeded into local storage.
+  5. Check **Connectivity → Device Connectivity (Staff)** to view the local IP address for mobile devices.
+* **Important Note**: The initial provisioning requires internet connectivity. Once completed, the workstation operates completely offline.
 
-#### Business Benefits:
-* **Zero Missed Orders**: Kitchen staff hear the exact table and items even when working away from the screen.
-* **Faster Prep Times**: Eliminates hand-written tickets, kitchen runners, and illegible order handwriting.
-* **100% Offline Resilience**: Windows SAPI synthesizes voice locally on your CPU without consuming bandwidth or requiring cloud API keys.
+#### 1.3 Navigating the App Workspace
+* **Top Quick-Action Ribbon**: One-click navigation shortcuts to *Hotel Bookings, Guests, Tables/Rooms, POS, Food Menu, Delivery, KDS, Reports, Backup, Settings*.
+* **Status Bell & Alerts**: Real-time notifications for local database integrity, sync queue status, and new orders.
+* **Orange Call Banner**: Real-time alert banner that triggers whenever a guest clicks *"Call Staff"* or initiates an intercom call from their table or room.
+* **Collapsible Left Sidebar**: Categorized access to all system modules (Dashboard, Hotel, Restaurant, Finance, Inventory, Connectivity, Settings).
 
----
-
-### 2. ⚡ Autonomous Local Server & Guest Digital QR Ordering
-
-#### How It Works:
-The Windows desktop app runs an embedded Dart Shelf microserver on port `8090` (HTTP) and `8443` (HTTPS). This transforms your desktop workstation into an in-house web server.
-
-#### How to Use:
-1. Connect your Windows PC and staff/guest devices to the same local Wi-Fi router.
-2. The app automatically detects its local IP (e.g., `http://192.168.1.50:8090`).
-3. Print table QR codes containing table-specific URLs directly from the app.
-4. Guests scan the QR code with any smartphone camera to browse the menu, filter dietary options, and submit food/drink orders directly into the desktop app.
-
-#### Business Benefits:
-* **Works Without Internet**: Guests can view menus and submit orders even if your ISP connection goes down.
-* **Reduced Staff Workload**: Guests self-order from their tables, freeing waitstaff to focus on service delivery.
-* **Microsecond Response**: Submissions register in milliseconds over local Wi-Fi.
+#### 1.4 Live Dashboard
+* **Location**: Sidebar → Dashboard
+* **Features & Metrics**:
+  * Live occupancy indicators for both hotel rooms and dining tables (Available, Occupied, Reserved, Dirty).
+  * Real-time counters of active kitchen orders (Pending, Preparing, Completed).
+  * Quick shortcuts into reservation entry, POS checkout, and financial revenue summaries.
 
 ---
 
-### 3. 💾 Autonomous SQLite Edge Database (`sqflite_common_ffi`)
+### 2. 🏨 Hotel Management Suite
 
-#### How It Works:
-All transactions, bookings, room statuses, orders, and customer profiles are stored locally on your SSD using native C++ `sqlite3.dll`.
+#### 2.1 Room Bookings, Calendar & Folios
+* **Location**: Sidebar → Hotel Management → Bookings / Calendar
+* **Sub-Modules**:
+  * **Bookings Ledger**: Create, modify, check in, and check out guest reservations.
+  * **Visual Calendar**: Color-coded timeline matrix displaying real-time room occupancy and future reservations across dates.
+  * **Rooms Directory**: Room list with real-time operational states (*Available, Occupied, Dirty, Maintenance*).
+  * **Room Types**: Classification rules, default pricing, and bed configurations.
+  * **Extra Services**: Billable add-ons including laundry, airport transfers, mini-bar restocking, and extra bedding.
+* **Creating a Reservation**:
+  1. Go to **Hotel Management → Bookings** and click **New Booking**.
+  2. Select an existing guest from the directory or create a new profile with ID verification details.
+  3. Select check-in and check-out dates; available rooms are filtered automatically.
+  4. Record an advance deposit payment if applicable (cash, card, bank QR, or guest wallet).
+  5. Save to reserve the room on the master timeline.
+* **Guest Check-Out & Folio Settlement**:
+  1. Open the active booking and select **Check-out**.
+  2. The consolidated folio automatically compiles room tariffs, extra services, and room-service food orders charged to the room.
+  3. Deduct any advance deposits, select the final settlement payment method, and generate the official GST/VAT invoice.
+  4. Upon check-out, the room status shifts to **Dirty** to alert housekeeping.
 
-#### How to Use:
-* Database operations are completely automated in the background.
-* Open **Settings -> Diagnostics -> Database Inspector** to view raw table rows, sync queue records, and cache health.
-
-#### Business Benefits:
-* **Crash-Proof Reliability**: ACID-compliant transactions protect your financial records against abrupt power failures.
-* **Instantaneous UI Loading**: Tables, bills, and guest directories render with zero network loading spinners.
-
----
-
-### 4. 🔄 Bidirectional Two-Way Offline Sync Engine (v2.0)
-
-#### How It Works:
-The background sync coordinator bridges your local desktop edge database with your master cloud system (`esanshar.com.np`).
-
-```
-[ Local Desktop Action ] ──► [ Local SQLite Save (last_sync_online = NULL) ]
-                                            │
-                             ┌──────────────┴──────────────┐
-                             │ Is Internet Connected?     │
-                             └──────────────┬──────────────┘
-                                            │
-                     ┌──────────────────────┴──────────────────────┐
-                     ▼ YES                                         ▼ NO
-        [ POST /api/sync-push ]                       [ Keep in local queue ]
-                     │                                             │
-      [ Mark last_sync_online = NOW ]                 [ Auto-push on reconnect ]
-```
-
-#### How to Use:
-1. In **Settings -> Server Settings**, set your **Project URL** (e.g., `https://www.esanshar.com.np`).
-2. The sync badge in the top menu shows current cloud status (Online / Offline).
-3. You can trigger an immediate full sync at any time via **Settings -> Sync with Live Server**.
-
-#### Business Benefits:
-* **No Lost Revenue**: Conduct business uninterrupted during ISP downtime; all sales synchronize automatically once connection restores.
-* **Centralized HQ Reporting**: Business owners can monitor multi-branch operations remotely on the web dashboard while front-desk teams work locally.
+#### 2.2 Guests Directory & Deposit Wallet
+* **Location**: Sidebar → Guests Directory (or Ribbon → Guests)
+* **Capabilities**:
+  * Instant guest search by full name, mobile number, or government identity/passport number.
+  * Detailed history of past visits, room preferences, and lifetime spending.
+  * **Guest Deposit (Wallet) System**: Manage prepaid customer credit balances that can be redeemed across dining, room charges, and banquet bookings.
 
 ---
 
-### 5. 🖨️ Thermal POS Receipt & KOT Spooler Integration
+### 3. 🍽️ Restaurant Management & POS Terminal
 
-#### How It Works:
-Communicates directly with Windows print spoolers to output formatted 80mm ESC/POS thermal receipts and kitchen order tickets (KOT).
+#### 3.1 Tables & Menu Items Catalog
+* **Location**: Sidebar → Restaurant Management → Tables / Menu Items
+* **Table Layouts**: Define dining areas, outdoor patios, VIP lounges, and individual table capacities. Enable or disable self-service QR ordering per table.
+* **Visual Table Status Matrix**:
+  | Status | Color Indicator | Meaning & Workflow |
+  | :--- | :---: | :--- |
+  | **Available** | Green | Table is vacant and ready for new guests. |
+  | **Occupied** | Blue | Table currently has active, unbilled orders. |
+  | **Reserved** | Purple | Table is booked for an upcoming reservation. |
+  | **Dirty** | Orange | Table requires bussing/cleaning before re-seating. |
+* **Menu Items Management**: Maintain food and drink items with multi-tier pricing, category tags, tax configurations, and photos. Quickly toggle items off when out of stock.
 
-#### How to Use:
-1. Open **Settings -> POS & Hardware Peripherals**.
-2. Enable **Auto-Print Customer Receipt** for automatic checkout printing.
-3. Enable **Auto-Print Kitchen KOT** so incoming food orders immediately print to your kitchen or bar ticket printers.
-4. Custom branding, tax headers, PAN numbers, and footer greetings can be configured under Branding settings.
+#### 3.2 POS: Taking Orders
+* **Location**: Ribbon → POS, or click any table → Take Order
+* **Workflow**:
+  1. Click **POS** and select the designated Table or Hotel Room.
+  2. Tap categories and menu items to assemble the cart.
+  3. Specify preparation modifiers and special dietary notes (e.g., *"extra spicy"*, *"no onions"*).
+  4. Submit order: Instantly broadcasts to the Kitchen Display System (KDS) and prints the Kitchen Order Ticket (KOT).
+* **Multi-Order Support**: Multiple separate orders (e.g., drinks first, main course later) can be submitted under a single table. They are automatically consolidated onto a single master bill.
 
-#### Business Benefits:
-* **Rapid Table Turnover**: Generate and print bills in one click.
-* **Audit & Tax Ready**: Formatted receipts include VAT, Service Charges, and PAN details compliant with national tax codes.
+#### 3.3 Kitchen Display System (KDS) & Voice TTS Announcements
+* **Location**: Ribbon → KDS, or Restaurant Management → Active Orders (KDS)
+* **KDS Workflow Columns**:
+  * **Pending**: New incoming orders awaiting kitchen acceptance. Triggers audio chime and voice announcements.
+  * **Preparing / In Progress**: Kitchen chefs have acknowledged and started cooking.
+  * **Completed**: Food has been plated and dispatched.
+* **Native Windows Speech Synthesis (SAPI.SpVoice)**:
+  * Converts order details into spoken audio alerts using Windows native TTS — **no cloud APIs, no internet, zero lag**.
+  * **Detailed Mode**: Announces table/room and exact items (*"New order for Table 3. 2 Chicken Burger, 1 Lemon Tea."*).
+  * **Compact Mode**: Summary announcement (*"New order for Table 3. 3 items."*).
+  * **Alert Only**: Urgent audio alert (*"New order received."*).
+* **Full Item Visibility**: Cards display all items, modifier notes, and quantity badges (`1x`, `2x`) with no hidden truncation.
+* **Completed ≠ Paid**: Kitchen completion indicates food service only. The order remains active on the table bill until settled by the cashier.
+
+#### 3.4 Billing, Payments & Deposit Settlements
+* **Location**: Occupied Table → Order Tab → Payment
+* **Payment Statuses**:
+  * **Unpaid**: Order placed; remains open on table bill.
+  * **Partial**: Portion paid; balance remains due.
+  * **Credit / Due**: Ledger balance charged to customer account for deferred settlement.
+  * **Paid**: Full balance settled; order moves to archive and table returns to Available.
+* **Guest Wallet Redemptions**: Apply customer advance deposits directly against dining charges with one click.
+
+#### 3.5 All Orders & Receipts Archive
+* **Location**: Sidebar → Restaurant Management → All Orders
+* **Capabilities**:
+  * Search past orders by order ID, date range, table number, customer name, or payment status.
+  * Re-open and reprint thermal receipts or KOT duplicates.
+  * Fully accessible offline from the local SQLite database.
 
 ---
 
-### 6. 📞 Wi-Fi Intercom & WebRTC Guest-to-Staff Calling
+### 4. 📱 Guest & Staff Mobility (Local Network)
 
-#### How It Works:
-Leverages local WebRTC audio streaming to create a digital intercom network across your property over Wi-Fi.
+#### 4.1 Guest Digital QR Menu
+* **How It Works**:
+  * The desktop application hosts an in-house web server on port `8090` (HTTP) and `8443` (HTTPS).
+  * Guests scan the QR code at their table or in their room using any smartphone camera.
+  * Menus open immediately in their mobile browser without downloading an app.
+  * Guests can add items, review prices, submit orders, and track preparation status in real time.
+  * A **Call Staff** button sends an alert to the desktop app with an audio prompt.
+* **Network Requirement**: Guest smartphones must be connected to the venue's local Wi-Fi router.
 
-#### How to Use:
-1. Guests open their room digital menu and tap **Call Reception** or **Request Service**.
-2. The Windows desktop app sounds an audio alert and displays an incoming call banner.
-3. Reception staff can accept the call to establish real-time, 2-way voice communication directly through their desktop microphone and speakers.
-4. **Push-to-Talk (PTT)** mode is available in Settings for busy front-desk environments.
+#### 4.2 Staff Mobile App Gateway
+* **Location**: Sidebar → Connectivity → Device Connectivity (Staff)
+* **Waitstaff Mobile Functionality**:
+  * Waitstaff connect Android or iOS devices over local Wi-Fi using the displayed IP address (or by scanning the connectivity QR code).
+  * Staff take orders tableside; submissions sync directly into the desktop SQLite database.
+  * Table status changes update simultaneously across all mobile and desktop screens.
 
-#### Business Benefits:
-* **Eliminates PBX Wiring**: Saves hardware wiring and maintenance costs associated with traditional copper intercom systems.
-* **Immediate Guest Assistance**: Direct voice communication improves guest satisfaction ratings.
+#### 4.3 WebRTC Voice Intercom
+* Enables low-latency, two-way audio calls between guest devices (table/room) and the desktop front-desk terminal over local Wi-Fi without internet or PBX hardware.
+* Push-to-Talk (PTT) mode is available in Settings for front-desk environments.
 
 ---
 
-### 7. 🏨 Integrated Hotel, Banquet & Restaurant Operations
+### 5. 🎯 Operations, Banquets & Delivery
 
-#### How It Works:
-Combines front-desk hotel room management, table bookings, banquet reservations, and food delivery dispatch into a unified interface.
+#### 5.1 Delivery Management
+* **Location**: Sidebar → Delivery Management (or Ribbon → Delivery)
+* **Workflow**: Record customer phone, delivery address, ordered items, and delivery fee. Assign delivery personnel, track status (*Pending → Dispatched → Delivered*), and reconcile driver cash collection.
 
-#### Feature Modules Included:
-* **Hotel Room Management**: Room rack visualizer, check-in, check-out, folio billing, housekeeping status (Clean, Dirty, Inspected).
-* **Table & Dine-in POS**: Visual floor plan map (Available, Occupied, Reserved, Billed), split billing, table transfer.
-* **Banquet & Event Management**: Hall scheduling, advance payments, catering menu packages, guest count tracking.
-* **Delivery & Takeaway**: Customer phone lookup, driver assignment, dispatch timers, unpaid/paid tracking.
+#### 5.2 Banquet & Event Hall Management
+* **Location**: Sidebar → Banquets Management
+* **Sub-Modules**:
+  * **Halls & Venues**: Define event spaces, seating capacities, and hourly/daily rental rates.
+  * **Hall Bookings**: Reserve venues with event schedules, estimated guest counts, and advance deposits.
+  * **Catering Packages & Add-ons**: Attach food buffets, audio-visual equipment, and decorative extras to event folios.
+
+#### 5.3 Finance, Invoices & Accounting
+* **Location**: Sidebar → Finance / Accounting
+* **Capabilities**:
+  * View sales invoices and record payments against them.
+  * Financial reports by date, payment method (Cash, Card, QR, Credit), and revenue center.
+  * Generate accounting vouchers that sync with the cloud general ledger.
+
+---
+
+### 6. ⚙️ Administration, Sync & Troubleshooting
+
+#### 6.1 User Management & Role Permissions
+* **Location**: Sidebar → User Management
+* **Staff Access Control**: Create staff logins with specific permission profiles (Admin, Cashier, Waitstaff, Kitchen Chef). Control which screens and actions each role can access.
+
+#### 6.2 Offline Storage, Sync & Cloud Backup
+* **Location**: Ribbon → Backup, or Sidebar → Connectivity
+* **The Offline-First Principle**:
+  1. Every action (booking, order, payment) is saved to the local SQLite database first.
+  2. Offline entries are flagged for cloud upload.
+  3. Clicking **Backup** pushes local changes to the cloud web system and downloads any updates made remotely.
+  4. If internet connectivity drops, operations continue without interruption; sync resumes once connectivity is restored.
+
+#### 6.3 Hardware Peripherals & Settings
+* **Location**: Sidebar → Settings
+* **Configuration Options**:
+  * **POS Printers**: Configure 80mm ESC/POS thermal printers via Windows print spoolers.
+  * **Auto-Printing**: Automatically print customer receipts on checkout and KOTs on order placement.
+  * **Branding & Tax**: Configure business headers, PAN/VAT registration numbers, and custom receipt footers.
+  * **Diagnostics & Health**: Monitor local server port status, SQLite table row counts, and connectivity latency.
+
+---
+
+## ❓ Frequently Asked Questions (FAQ)
+
+> **Q: Can I use this desktop app if my business does not have the HOSTIFY website?**  
+> **A: NO.** The desktop version requires the cloud web system for initial setup, licensing, menu catalogs, and user authorization.
+
+> **Q: What happens if our internet connection goes down during service?**  
+> **A: Operations continue normally.** Table orders, KDS kitchen tickets, thermal printing, and room check-ins run through the local database and local Wi-Fi. Sync with the cloud resumes automatically when the internet returns.
+
+> **Q: How do guest phones access the digital menu without an internet connection?**  
+> **A: Via your local Wi-Fi router.** The desktop app runs an embedded web server on port `8090`/`8443`. As long as guest phones are connected to the venue Wi-Fi, they can open the menu directly from the desktop computer.
+
+> **Q: An order is marked "Completed" on the KDS, but the table still shows Occupied. Why?**  
+> **A: Kitchen completion and billing are separate.** "Completed" means the kitchen has finished preparing the food. The table remains Occupied until the bill is settled through Payment.
+
+> **Q: Where is my data saved?**  
+> **A: Locally on your PC and in the cloud.** All operational data is stored in the local SQLite database on your computer's drive and replicated to your secure cloud web system during sync.
 
 ---
 
 ## 💻 System Requirements
 
-| Specification | Minimum Specification | Recommended Specification |
+| Component | Minimum Specification | Recommended Specification |
 | :--- | :--- | :--- |
-| **Operating System** | Windows 10 (64-bit, Version 1809 or higher) | Windows 11 (64-bit, latest release) |
-| **Processor (CPU)** | Intel Core i3 / AMD Ryzen 3 (2.0 GHz or higher) | Intel Core i5 / AMD Ryzen 5 or higher |
+| **Operating System** | Windows 10 (64-bit, Version 1809+) | Windows 11 (64-bit, latest release) |
+| **Processor (CPU)** | Intel Core i3 / AMD Ryzen 3 (2.0 GHz) | Intel Core i5 / AMD Ryzen 5 or higher |
 | **Memory (RAM)** | 4 GB | 8 GB or higher |
-| **Storage** | 500 MB free space (SSD strongly recommended) | NVMe SSD with 2 GB+ free space |
+| **Storage** | 500 MB free space (SSD recommended) | NVMe SSD with 2 GB+ free space |
 | **Display Resolution**| 1366 x 768 | 1920 x 1080 (Full HD) |
-| **Network** | Wi-Fi / Ethernet router for local device connections | Dedicated Gigabit Wi-Fi 6 Router |
-| **Audio** | Standard sound card + speakers | External amplified speakers (for kitchen voice alerts) |
-| **Peripherals** | Any Windows-compatible 80mm ESC/POS printer | USB or Network (Ethernet) 80mm Thermal Printer |
-
----
-
-## 🔧 Step-by-Step Installation & Setup
-
-### Step 1: Install the Application
-1. Download [`WindowsApp-Setup-1.5.3.exe`](releases/WindowsApp-Setup-1.5.3.exe).
-2. Right-click the executable and select **Run as Administrator**.
-3. Follow the installation wizard. The app will install into `C:\Program Files\HospitalityOS` and grant necessary permissions to its local database directory.
-
-### Step 2: Provision Your Web Connection (Mandatory)
-1. Launch **HospitalityOS** from your Desktop shortcut.
-2. In the setup wizard, input your **Master Web System URL**:
-   ```
-   https://www.esanshar.com.np
-   ```
-   *(or your customized organization web address)*.
-3. Enter your assigned **License Key / API Key** and authenticate with your staff or administrator account.
-4. Click **Connect & Initial Sync** to populate your local database with your restaurant menu items, rooms, tables, and tax configurations.
-
-### Step 3: Configure Local Network & Hardware
-1. Ensure the Windows PC is assigned a static local IP on your Wi-Fi router (e.g., `192.168.1.100`).
-2. Navigate to **Settings -> POS & Hardware Peripherals** to select your thermal receipt printer.
-3. Navigate to **Settings -> Kitchen Voice Announcement (TTS)** to select your voice style and test speaker volume.
+| **Networking** | Wi-Fi / Ethernet router for local devices | Dedicated Gigabit Wi-Fi 6 Router |
+| **Audio** | Standard audio output | External speakers (for kitchen voice announcements) |
+| **Receipt Printer** | Windows-compatible 80mm ESC/POS printer | USB or Ethernet (LAN) 80mm Thermal Printer |
 
 ---
 
 ## 🏗️ Technical Architecture
 
 * **UI Framework**: Flutter Desktop (Windows C++ Runner, Dart 3.11)
-* **Application Architecture**: Layered Feature-First Architecture with Riverpod 2.6
+* **State Management**: Riverpod 2.6 (`StateNotifierProvider`)
 * **Local Database Engine**: SQLite 3 via `sqflite_common_ffi`
-* **Local Web Server**: Dart Shelf (`shelf`, `shelf_router`, `http_multi_server`)
-* **Real-time Engine**: WebSocket Channel + WebRTC P2P Mesh (`dart_webrtc`)
-* **Speech Synthesis**: Windows SAPI COM (`SAPI.SpVoice` via UTF-16LE Base64 `-EncodedCommand`)
+* **Local Server**: Dart Shelf Framework (`shelf`, `shelf_router`, `http_multi_server`)
+* **Real-time Networking**: WebSocket Channels + WebRTC P2P Mesh (`dart_webrtc`)
+* **Voice Synthesis Engine**: Windows Native SAPI (`SAPI.SpVoice` via UTF-16LE Base64 PowerShell execution)
 * **Audio Engine**: `audioplayers` native Windows backend
-* **Packaging & Delivery**: NSIS 3.x with solid LZMA compression
+* **Packaging**: NSIS (Nullsoft Scriptable Install System) v3.x with LZMA compression
 
 ---
 
 ## 📄 Licensing & Authorization
 
 HospitalityOS Windows Hub is proprietary commercial software.  
-Usage requires an active enterprise license associated with your Hospitality Web Management installation. Unlicensed devices or nodes disabled from the central web console will be restricted from accessing local POS and KDS operations.
+Usage requires an active enterprise license tied to your Hospitality Web Management installation. Unlicensed instances or nodes disabled from the central web console will be restricted from accessing local POS and KDS operations.
 
 * **Developer**: Sanshar / Technicguy
 * **Official Website**: [https://www.esanshar.com.np](https://www.esanshar.com.np)
